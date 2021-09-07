@@ -1,2 +1,2 @@
-# SUP
+# Syntactically-Informed Unsupervised Paraphrasing with Non-Parallel Data
 The source code of the SUP model. Come soon...
