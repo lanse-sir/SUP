@@ -1,2 +1,2 @@
 # SUP
-The source code of the SUP model.
+The source code of the SUP model. Come soon...
