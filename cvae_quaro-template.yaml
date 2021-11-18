@@ -1,0 +1,74 @@
+model_configs:
+  # input file .
+  input_sent: ../data/quaro/train/train_remove_sent.txt
+  input_parser: ../data/quaro/train/train_remove_template.txt
+  input_ref: ../data/quaro/train/train_remove_sent.txt
+  dev_sent: ../data/quaro/dev/src-dev.txt
+  dev_parser: ../data/quaro/dev/tgt-dev-template.txt
+  dev_ref: ../data/quaro/dev/tgt-dev.txt
+  vocab: ../data/quaro/word_vocab_2
+  parser_vocab: ../data/quaro/parse_vocab
+  pretrain_emb: ../data/glove.42B.300d.txt
+  # pretrain_emb: ../data/GoogleNews-vectors-negative300.bin
+  word_occur: ../data/quaro/quaro_word_occurence.pkl
+  # training setup
+  cat_add: other
+  fix_word_emb: false
+  seed: 0
+  gpu: 0
+  tree_gru: true
+  batch_size: 64
+  lr: 0.0005
+  noise: false
+  sent_max_time_step: &smts 35
+  dec_ratio: 3.2
+  parse_max_time_step: &tmts 200
+  decode_max_time_step: *smts
+  cuda: true
+  clip: 5.0
+  eval_bs: 10
+  greedy: true
+  linear_warmup: false
+  warm_up: 5000
+  epoch: 10
+  patience: 25
+  bow_ratio: 1.0
+  # seq2seq model parameter
+  embed_size: &ves 300
+  hidden_size: &vhs 300
+  num_layers: &vnl 1
+  rnn_drop: &vrd 0.0
+  rnn_type: gru
+  enc_embed_dim: *ves
+  tree_embed_dim: 300
+  enc_hidden_dim: *vhs
+  enc_num_layers: *vnl
+  bidirectional: true
+  mapper_type: mapping
+  dec_embed_dim: *ves
+  dec_hidden_dim: *vhs
+  dec_num_layers: *vnl
+  # vae parameter
+  latent_size: 300
+  sample_size: 5
+  share_embed: true
+  enc_ed: 0.0
+  enc_rd: 0.0
+  dec_ed: *vrd
+  dec_rd: *vrd
+  unk_rate: 0.5
+  k: 0.0025
+  x0: 2500
+  anneal_function: sigmoid
+  unk_schedule: fixed
+  src_wd: false
+  tgt_wd: true
+  peak_anneal: false
+  init_step_kl_weight: ~
+  stop_clip_kl: 0.3
+  kl_sem: 1.3
+  #  aux_weight: ~
+  bow_factor: 0.5
+  mul_sem: 5.0
+  content_factor: 0.0
+  report: ~

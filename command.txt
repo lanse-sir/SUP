@@ -1,0 +1,61 @@
+nohup python -u train_cvae.py --model_config cvae_quaro-parse.yaml --model_file quaro/checkpoint/model_17 --sent quaro/predict/dev_sent_17 > quaro/log/17_parse_kl-0.3.out &
+
+
+# fine-tune
+nohup python -u fine_tune.py --cvae_file para1m/checkpoint/model_1 --finetune --config para1m_fine-tune.yaml --sent para1m/finetune/predict/dev_sent --syn_pred para1m/finetune/predict/dev_parse --run_name 1-self --model_file para1m/finetune/checkpoint/model --dev_every 1000 > para1m/finetune/log/1-self &
+
+# generate command.
+python -u generator.py --sent para5m/generation/test_sent_4 --model_file para5m/checkpoint/model_4_parse --tree_gru
+
+# new command.
+python -u generator.py --model_file checkpoint/model_49 --sent generate/49_tgt_tempalte_beam --tree_gru
+python -u generator.py --model_file finetune/checkpoint/finetune_cvae_63-16 --tree_gru --sent finetune/generate/63-16_finetune_cvae_test_sent --beam_size 4
+
+# train command.
+nohup python -u train_cvae.py --model_file checkpoint/model_22 --sent predict/dev_sent_22 --debug > log/22_kl_0.3.out &
+
+# Quaro dataset. 
+### train command.
+nohup python -u train_cvae.py --model_file quaro/checkpoint/1_quaro --sent quaro/predict/1_dev_sent > quaro/log/1_kl-0.1_unk-0.25.out &
+
+### fine-tune
+nohup python -u fine_tune.py --config quaro_fine-tune_config.yaml --cvae_file quaro/checkpoint/2_quaro --finetune --sent quaro/fine-tune/predict/quaro-dev-sent --syn_pred quaro-dev-parse --run_name 2-1 --model_file quaro/fine-tune/checkpoint/fine-tune-cvae > quaro/fine-tune/log/2-1_lr-0.0005.out &
+
+### training from scratch.
+nohup python -u fine_tune.py --config para5m_fine-tune.yaml --sent para5m/finetune/predict/dev_sent --syn_pred para5m/finetune/predict/dev_parse --run_name 1 --model_file para5m/finetune/checkpoint/model > para5m/finetune/log/1_cls-2 &
+
+
+
+
+### generation command .
+python -u generator.py --dev_sent ../data/quaro/test/src-test.txt --dev_parse ../data/quaro/test/tgt-test-template.txt --dev_ref ../data/quaro/test/tgt-test.txt  --model_file quaro/checkpoint/2_quaro --sent quaro/generation/2_tgt_tempalte_beam_4 --tree_gru --eval_bs 50
+
+python -u generator.py --dev_sent ../data/quaro/dev/src-dev_4-30.txt --dev_parse ../data/quaro/dev/tgt-dev-parse_4-30.txt --dev_ref ../data/quaro/dev/tgt-dev_4-30.txt  --model_file para5m/checkpoint/model_1 --sent quaro/dev_parse_sent_4-30.txt --tree_gru --eval_bs 50
+
+
+
+# One billion dataset.
+### train cvae.
+nohup python -u train_cvae.py --model_config cvae_onebillion.yaml --model_file one-billion/checkpoint/1_model --sent one-billion/predict/1_dev_sent > one-billion/log/1_kl-0.3_epoch-5.out &
+
+
+### fine-tune using one-billion template.
+nohup python -u fine_tune.py --config sst_fine-tune_config.yaml --cvae_file one-billion/checkpoint/1_model --finetune --sent one-billion/fine-tune/predict/sst-dev-sent --syn_pred one-billion/fine-tune/predict/sst-dev-parse --run_name 1-1 --model_file one-billion/fine-tune/checkpoint/sst-cvae > one-billion/fine-tune/log/1-1_sst_kl-0.3_cls-2.5 &
+
+### fine-tune using SST syntactic templates.
+nohup python -u fine_tune.py --config sst-template_fine-tune_config.yaml --cvae_file one-billion/checkpoint/1_model --finetune --sent one-billion/fine-tune/predict/sst-dev-sent --syn_pred one-billion/fine-tune/predict/sst-dev-parse --run_name 1-3 --model_file one-billion/fine-tune/checkpoint/sst-cvae --dev_every 500 > one-billion/fine-tune/log/1-3_sst_kl-0.3_cls-2.5_epoch-100_sst-template &
+
+
+new command.
+nohup python -u fine_tune.py --cvae_file para5m/checkpoint/model_3 --finetune --config sst_fine-tune.yaml --sent para5m/finetune/sst/predict/dev_sent --syn_pred para5m/finetune/sst/predict/dev_parse --run_name 3-2 --model_file para5m/finetune/sst/checkpoint/model --dev_every 1000 > para5m/finetune/sst/log/3-2.out &
+
+
+
+### generation.
+python -u generate_sentence.py --input_sent ../data/SST/original-sentence/dev/dev_sent.txt --input_template ../data/SST/original-sentence/sst-template-10.txt --model_file one-billion/fine-tune/checkpoint/sst-cvae_3-9 --sent one-billion/fine-tune/generation/3-9_sent
+
+
+
+new . para5m
+
+nohup python -u fine_tune.py --cvae_file para5m/checkpoint/model_3 --finetune --config para5m_fine-tune.yaml --sent para5m/finetune/predict/dev_sent --syn_pred para5m/finetune/predict/dev_parse --run_name 3_2-cls-cly --model_file para5m/finetune/checkpoint/model --dev_every 10000 > para5m/finetune/log/3_2-cls-cly &

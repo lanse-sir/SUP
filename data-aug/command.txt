@@ -1,0 +1,5 @@
+train ...
+nohup python -u train_classifier.py --start_eval 5 --model_file checkpoint/model_4 > log/4.out &
+
+train argument .
+nohup python -u train_classifier.py --train_sent data/argument-data/argument_train_sent_25.txt --train_label data/argument-data/argument_train_label_25.txt --model_file checkpoint/model_4_argument --start_eval 2 > log/4_argument.out &

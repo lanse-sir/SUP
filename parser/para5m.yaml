@@ -1,0 +1,52 @@
+model_configs:
+  # input file .
+  input_sent: ../../data/para5m/train/sentence_4-30_bpe.txt
+  input_ref: ../../data/para5m/train/template_4-30.txt
+  dev_sent: ../../data/para50w/dev/dev_tgt_sent.txt
+  dev_ref: ../../data/para50w/dev/dev_tgt_template.txt
+  vocab: ../../data/para5m/train/vocab/vocab_0.txt
+  parser_vocab: ../../data/para5m/train/vocab/parse_vocab.txt
+  pretrain_emb: ../../data/glove.42B.300d.txt
+  # bpe file
+  bpe_codes_path: ../../data/para5m/train/vocab/code_file_32k.txt
+  bpe_vocab_path: ../../data/para5m/train/vocab/vocab_32k.txt
+  bpe_vocab_thresh: 50
+  # pretrain_emb: ../../data/pretrain-emb/GoogleNews-vectors-negative300.txt
+  # training setup
+  seed: 0
+  gpu: 0
+  smoothing: false
+  batch_size: 128
+  lr: 0.0005
+  lr_decay: 0.9
+  dec_ratio: 3.2
+  sent_max_time_step: &smts 35
+  parse_max_time_step: &tmts 200
+  cuda: true
+  clip: 5.0
+  eval_bs: 10
+  greedy: true
+  linear_warmup: false
+  warm_up: 5000
+  epoch: 5
+  patience: 15
+  # seq2seq model parameter
+  enc_ed: 0.2
+  enc_rd: 0.2
+  dec_ed: 0.2
+  dec_rd: 0.2
+  embed_size: &ves 300
+  tree_embed_size: 300
+  hidden_size: &vhs 512
+  num_layers: &vnl 1
+  rnn_drop: &vrd 0.0
+  rnn_type: gru
+  enc_embed_dim: *ves
+  enc_hidden_dim: *vhs
+  enc_num_layers: *vnl
+  bidirectional: true
+  mapper_type: mapping
+  dec_embed_dim: *ves
+  dec_hidden_dim: *vhs
+  dec_num_layers: *vnl
+  report: ~
