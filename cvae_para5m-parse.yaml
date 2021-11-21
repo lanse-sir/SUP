@@ -72,7 +72,7 @@ model_configs:
   peak_anneal: false
   init_step_kl_weight: ~
   stop_clip_kl: 0.3
-  kl_sem: 1.5
+  kl_sem: 0.3
   #  aux_weight: ~
   bow_factor: 0.5
   mul_sem: 5.0
