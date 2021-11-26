@@ -4,7 +4,7 @@ import json
 import numpy as np
 import random
 from torch.autograd import Variable
-from autocg.cvae_model.content_recognition import select_content_words
+from autocg.content_recognition import select_content_words
 from nltk.tree import Tree
 
 

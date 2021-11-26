@@ -13,12 +13,11 @@ import numpy as np
 import torch
 from model_cvae import model_cvae
 from autocg.subwordnmt.apply_bpe import BPE, read_vocabulary
-from data_init import batch_serialization_parallel, batch_sentence_tree
+from data_init import batch_serialization_parallel
 from autocg.utils.config_funcs import yaml_to_dict, dict_to_args
 from autocg.optimizers.schedule import LinearWarmupRsqrtDecay
 from autocg.pretrain_embedding import load_embedding
 from autocg.load_file import save_to_file, load_file_sent_or_parser
-from autocg.evaluation_utils import run_multi_bleu
 from visdom import Visdom
 
 # evaluation bleu script .
