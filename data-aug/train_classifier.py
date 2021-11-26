@@ -5,7 +5,7 @@ sys.path.append('../')
 import torch
 import os
 from autocg.pretrain_embedding import load_embedding
-from autocg.sentiment.classifer import binary_classifer
+from classifer import binary_classifer
 import random
 import argparse
 
