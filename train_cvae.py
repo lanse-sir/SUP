@@ -7,7 +7,8 @@ import codecs
 
 sys.path.append('../../')
 sys.path.append('../')
-# random.seed(0)
+
+import subprocess
 import numpy as np
 import torch
 from model_cvae import model_cvae
@@ -21,8 +22,15 @@ from autocg.evaluation_utils import run_multi_bleu
 from visdom import Visdom
 
 # evaluation bleu script .
-MULTI_BLEU_PERL =  '/dfsdata2/yangeg1_data/multi-bleu.perl'
+MULTI_BLEU_PERL =  'multi-bleu.perl'
 
+def run_multi_bleu(input_file, reference_file, MULTI_BLEU_PERL=MULTI_BLEU_PERL):
+    bleu_output = subprocess.check_output(
+        "perl {} -lc {} < {}".format(MULTI_BLEU_PERL, reference_file, input_file),
+        stderr=subprocess.STDOUT, shell=True).decode('utf-8')
+    bleu = float(
+        bleu_output.strip().split("\n")[-1].split(",")[0].split("=")[1][1:])
+    return bleu
 
 def parse_args():
     parser = argparse.ArgumentParser(
