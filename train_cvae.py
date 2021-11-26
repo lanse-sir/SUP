@@ -21,7 +21,7 @@ from autocg.load_file import save_to_file, load_file_sent_or_parser
 from visdom import Visdom
 
 # evaluation bleu script .
-MULTI_BLEU_PERL =  'multi-bleu.perl'
+MULTI_BLEU_PERL =  'evaluation/multi-bleu.perl'
 
 def run_multi_bleu(input_file, reference_file, MULTI_BLEU_PERL=MULTI_BLEU_PERL):
     bleu_output = subprocess.check_output(
