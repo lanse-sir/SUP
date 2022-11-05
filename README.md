@@ -1,5 +1,5 @@
 # Syntactically-Informed Unsupervised Paraphrasing with Non-Parallel Data
-The source code of the SUP model. Come soon...
+The source code of the [Syntactically-Informed Unsupervised Paraphrasing with Non-Parallel Data](https://aclanthology.org/2021.emnlp-main.203/).
 
 ## Datasets
 Quora: download from [https://drive.google.com/file/d/1RdIQEoWJbm4HtNYaxFHjleBgX5FIZZtp/view?usp=sharing](https://drive.google.com/file/d/1RdIQEoWJbm4HtNYaxFHjleBgX5FIZZtp/view?usp=sharing).
